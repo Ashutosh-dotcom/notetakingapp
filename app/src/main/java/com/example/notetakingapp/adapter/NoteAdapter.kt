@@ -1,13 +1,18 @@
 package com.example.notetakingapp.adapter
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.notetakingapp.HomeFragment
+import com.example.notetakingapp.HomeFragmentDirections
 import com.example.notetakingapp.databinding.NoteLayoutBinding
 import com.example.notetakingapp.model.Note
 import kotlin.contracts.contract
+import java.util.*
 
 class NoteAdapter:RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
 
@@ -33,5 +38,34 @@ class NoteAdapter:RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
                 LayoutInflater.from(parent.context),parent,false
             )
         )
+    }
+
+    override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
+        val currentNote = differ.currentList[position]
+
+        holder.itemBinding.tvNoteTitle.text =currentNote.noteTitle
+        holder.itemBinding.tvNoteBody.text = currentNote.noteBody
+
+        val random = Random()
+        val color = Color.argb(
+            255,
+            random.nextInt(256),
+            random.nextInt(256),
+            random.nextInt(256)
+        )
+
+        holder.itemBinding.ibColor.setBackgroundColor(color)
+        holder.itemView.setOnClickListener{
+            val direction =HomeFragmentDirections.
+            actionHomeFragmentToUpdateNoteFragment(currentNote)
+
+            it.findNavController().navigate(direction)
+        }
+
+
+    }
+
+    override fun getItemCount(): Int {
+        return differ.currentList.size
     }
 }
