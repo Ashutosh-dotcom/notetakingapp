@@ -7,11 +7,10 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.notetakingapp.HomeFragment
-import com.example.notetakingapp.HomeFragmentDirections
 import com.example.notetakingapp.databinding.NoteLayoutBinding
+
+
 import com.example.notetakingapp.model.Note
-import kotlin.contracts.contract
 import java.util.*
 
 class NoteAdapter:RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
@@ -56,7 +55,7 @@ class NoteAdapter:RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
 
         holder.itemBinding.ibColor.setBackgroundColor(color)
         holder.itemView.setOnClickListener{
-            val direction =HomeFragmentDirections.
+            val direction = com.example.notetakingapp.HomeFragmentDirections.
             actionHomeFragmentToUpdateNoteFragment(currentNote)
 
             it.findNavController().navigate(direction)
